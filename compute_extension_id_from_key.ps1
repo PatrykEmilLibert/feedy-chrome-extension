@@ -12,32 +12,29 @@ if (-not (Test-Path $KeyPath)) {
     throw "Key file not found: $KeyPath"
 }
 
-function Resolve-PythonCommand {
+function Resolve-PythonExecutable {
     $candidates = @(
-        'py -3',
-        'python',
-        "$env:LOCALAPPDATA\\Programs\\Python\\Python312\\python.exe"
+        "$env:LOCALAPPDATA\\Programs\\Python\\Python312\\python.exe",
+        "$env:ProgramFiles\\Python312\\python.exe",
+        "$env:ProgramFiles(x86)\\Python312\\python.exe"
     )
 
     foreach ($candidate in $candidates) {
-        $head = $candidate.Split(' ')[0]
-        if ($head -match '\\.exe$') {
-            if (Test-Path $head) {
-                return $candidate
-            }
-        } else {
-            $cmd = Get-Command $head -ErrorAction SilentlyContinue
-            if ($cmd) {
-                return $candidate
-            }
+        if (Test-Path $candidate) {
+            return $candidate
         }
+    }
+
+    $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+    if ($pythonCmd -and $pythonCmd.Source) {
+        return $pythonCmd.Source
     }
 
     return $null
 }
 
-$pythonCommand = Resolve-PythonCommand
-if (-not $pythonCommand) {
+$pythonExe = Resolve-PythonExecutable
+if (-not $pythonExe) {
     throw "Python not found. Install Python 3 with package 'cryptography' to use this helper script."
 }
 
@@ -64,7 +61,7 @@ $tempPy = Join-Path $env:TEMP ("feedy_ext_id_{0}.py" -f ([guid]::NewGuid().ToStr
 Set-Content -Path $tempPy -Value $pythonCode -Encoding UTF8
 
 try {
-    $result = Invoke-Expression "$pythonCommand \"$tempPy\""
+    $result = & $pythonExe $tempPy
     $extensionId = ($result | Select-Object -Last 1).Trim()
 }
 finally {
