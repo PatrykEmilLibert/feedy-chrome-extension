@@ -1,0 +1,28 @@
+name: Release ZIP
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build release zip
+        shell: pwsh
+        run: |
+          ./build_release.ps1 -OutputDir "$env:GITHUB_WORKSPACE\\release_artifacts"
+
+      - name: Publish GitHub release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release_artifacts/*.zip

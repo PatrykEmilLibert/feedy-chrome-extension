@@ -1,0 +1,10 @@
+# Local build outputs
+/dist/
+/releases/
+
+# Local signing keys (never commit)
+/signing/
+*.pem
+
+# Temporary local test files
+/__tmp_*

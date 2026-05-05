@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedy Web - Panel Makr</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <h1>Menedzer Makr WWW</h1>
+        <p>Tryb Chrome: uruchamianie makr bezposrednio na kartach.</p>
+      </header>
+
+      <main class="grid">
+        <section class="card card-strong">
+          <h2>Dostepne Makra</h2>
+          <div class="split">
+            <div>
+              <label for="macroEditorList">Edycja makra</label>
+              <select id="macroEditorList" size="8"></select>
+            </div>
+            <div>
+              <label for="macroRunList">Uruchamianie (multi-select)</label>
+              <select id="macroRunList" size="8" multiple></select>
+            </div>
+          </div>
+
+          <div class="row gap top-space row-fill">
+            <button id="btnNewMacro" class="outline">Nowe</button>
+            <button id="btnSaveMacro" class="accent">Zapisz</button>
+            <button id="btnDeleteMacro" class="danger">Usun</button>
+            <button id="btnRefresh" class="outline">Odswiez</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Edycja Makra</h2>
+          <div class="form-grid">
+            <label for="macroName">Nazwa makra</label>
+            <input id="macroName" type="text" placeholder="Przyklad: Save and Run" />
+
+            <label for="macroHotkey">Skrót (opcjonalnie)</label>
+            <input id="macroHotkey" type="text" placeholder="Przyklad: F11" />
+          </div>
+
+          <h3>Lista Akcji</h3>
+          <select id="actionList" size="8"></select>
+
+          <div class="row gap top-space row-fill">
+            <button id="btnMoveUp" class="outline">Przesun w gore</button>
+            <button id="btnMoveDown" class="outline">Przesun w dol</button>
+            <button id="btnRemoveAction" class="danger">Usun akcje</button>
+            <button id="btnClearActions" class="outline">Wyczysc wszystko</button>
+          </div>
+
+          <h3>Szybkie Akcje</h3>
+          <div class="quick-buttons">
+            <button id="btnAddTab" class="outline">Tab</button>
+            <button id="btnAddEnter" class="outline">Enter</button>
+            <button id="btnAddShiftTab" class="outline">Shift+Tab</button>
+            <button id="btnAddCtrlTab" class="outline">Ctrl+Tab</button>
+            <button id="btnAddUp" class="outline">Gora</button>
+            <button id="btnAddDown" class="outline">Dol</button>
+            <button id="btnAddLeft" class="outline">Lewo</button>
+            <button id="btnAddRight" class="outline">Prawo</button>
+          </div>
+
+          <h3>Presety WWW</h3>
+          <div class="quick-buttons">
+            <button id="btnPresetFiles" class="outline">Files</button>
+            <button id="btnPresetSave" class="outline">Save</button>
+            <button id="btnPresetRunScript" class="outline">Run script</button>
+            <button id="btnPresetAddFile" class="outline">Add File</button>
+            <button id="btnPresetAddPerSku" class="outline">Add per sku tab</button>
+          </div>
+
+          <h3>Dodaj lub Edytuj Akcje</h3>
+          <div class="form-grid">
+            <label for="actionType">Typ</label>
+            <select id="actionType">
+              <option value="web_click">Klik WWW (selektor)</option>
+              <option value="web_click_text">Klik WWW (tekst)</option>
+              <option value="focus_input_fragment">Znajdz input po fragmencie tekstu</option>
+              <option value="key">Nacisnij klawisz</option>
+              <option value="text">Wpisz tekst</option>
+            </select>
+
+            <label for="actionValue">Wartosc</label>
+            <input id="actionValue" type="text" placeholder="selektor, tekst, kombinacja klawiszy" />
+
+            <label for="actionLabel">Etykieta (opcjonalnie)</label>
+            <input id="actionLabel" type="text" placeholder="Przyjazna nazwa akcji" />
+
+            <label for="actionTag">Tag dla klik tekst</label>
+            <input id="actionTag" type="text" placeholder="button" value="button" />
+
+            <label for="actionExact">Dokladne dopasowanie tekstu</label>
+            <input id="actionExact" type="checkbox" checked />
+
+            <label for="actionIgnoreNavigation">Ignoruj nawigacje/menu</label>
+            <input id="actionIgnoreNavigation" type="checkbox" checked />
+          </div>
+
+          <div class="row gap top-space row-fill">
+            <button id="btnAddAction" class="outline">Dodaj akcje</button>
+            <button id="btnUpdateAction" class="outline">Aktualizuj zaznaczona</button>
+            <button id="btnStartPicker" class="accent">Skan strony</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Dodaj Makro Strukturalne</h2>
+          <p>Generator sekwencji jak w wersji desktopowej.</p>
+
+          <div class="form-grid">
+            <label for="structuredMacroName">Nazwa makra</label>
+            <input id="structuredMacroName" type="text" placeholder="Np. Mano DE strukturalne" />
+
+            <label for="structuredResultFile">Plik wynikowy</label>
+            <input id="structuredResultFile" type="text" placeholder="result.csv" />
+
+            <label for="structuredCurrencyPair">Para walutowa</label>
+            <input id="structuredCurrencyPair" type="text" placeholder="EUR/PLN" />
+
+            <label for="structuredMaxStock">Maksymalny stan</label>
+            <input id="structuredMaxStock" type="text" placeholder="999" />
+
+            <label for="structuredPriceGroupCsv">Grupa cenowa dla CSV</label>
+            <input id="structuredPriceGroupCsv" type="text" placeholder="great" />
+
+            <label for="structuredPerSkuName">Nazwa kolumny per SKU</label>
+            <input id="structuredPerSkuName" type="text" placeholder="price_per_sku" />
+
+            <label for="structuredMergeOnColumn">Kolumna do mapowania</label>
+            <input id="structuredMergeOnColumn" type="text" placeholder="sku" />
+          </div>
+
+          <label class="top-space block-label">Modyfikatory cen</label>
+          <div class="structured-table-wrap">
+            <table class="structured-table" aria-label="Modyfikatory cen">
+              <thead>
+                <tr>
+                  <th>Przedzial (do)</th>
+                  <th>Mnoznik</th>
+                  <th>Kwota dodana</th>
+                  <th>Wysylka</th>
+                </tr>
+              </thead>
+              <tbody id="structuredModifierRows"></tbody>
+            </table>
+          </div>
+
+          <div class="row gap top-space row-fill">
+            <button id="btnAddStructuredMacro" class="accent">Dodaj makro strukturalne</button>
+            <button id="btnClearStructuredForm" class="outline">Wyczysc formularz</button>
+          </div>
+        </section>
+
+        <section class="card card-strong">
+          <h2>Uruchamianie</h2>
+          <div class="form-grid">
+            <label for="targetMode">Tryb uruchomienia</label>
+            <select id="targetMode">
+              <option value="active">Aktywna karta</option>
+              <option value="sameDomain">Wszystkie karty tej samej domeny</option>
+              <option value="allCurrentWindow">Wszystkie karty w biezacym oknie</option>
+            </select>
+
+            <label for="repeats">Ilosc powtorzen sekwencji</label>
+            <input id="repeats" type="number" value="1" min="1" max="100" />
+
+            <label for="parallelLimit">Kart rownolegle</label>
+            <input id="parallelLimit" type="number" value="12" min="1" max="30" />
+
+            <label for="postActionDelayMs">Opoznienie po akcji (ms)</label>
+            <input id="postActionDelayMs" type="number" value="0" min="0" max="5000" />
+
+            <label for="skipIntermediateAfterFirstMacro">Pomin akcje posrednie po 1. makrze</label>
+            <input id="skipIntermediateAfterFirstMacro" type="checkbox" />
+          </div>
+
+          <div class="row gap top-space row-fill">
+            <button id="btnRun" class="accent">Uruchom zaznaczone</button>
+            <button id="btnStop" class="danger">Anuluj</button>
+          </div>
+
+          <h3>Status</h3>
+          <pre id="statusLog" class="status-log"></pre>
+        </section>
+
+        <section class="card">
+          <h2>Import / Export</h2>
+          <p>Szybka migracja z plikow makr JSON i legacy CSV.</p>
+          <input id="jsonFileInput" type="file" accept="application/json,.json,text/csv,.csv" />
+
+          <div class="row gap top-space">
+            <button id="btnImportFile" class="outline">Import z pliku (JSON/CSV)</button>
+          </div>
+
+          <textarea id="jsonTransfer" rows="10" placeholder="Wklej JSON tutaj"></textarea>
+
+          <div class="row gap top-space row-fill">
+            <button id="btnExportJson" class="outline">Eksport aktualnych</button>
+            <button id="btnImportJson" class="outline">Import z pola</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="sidepanel.js"></script>
+  </body>
+</html>
