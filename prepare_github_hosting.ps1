@@ -9,11 +9,19 @@ param(
     [ValidatePattern('^[a-p]{32}$')]
     [string]$ExtensionId,
 
-    [string]$CrxPath = "$PSScriptRoot\\dist\\feedy_chrome_extension.crx",
-    [string]$PublishDir = "$PSScriptRoot\\public"
+    [string]$CrxPath = '',
+    [string]$PublishDir = ''
 )
 
 $ErrorActionPreference = 'Stop'
+
+  if ([string]::IsNullOrWhiteSpace($CrxPath)) {
+    $CrxPath = Join-Path $PSScriptRoot 'dist\\feedy_chrome_extension.crx'
+  }
+
+  if ([string]::IsNullOrWhiteSpace($PublishDir)) {
+    $PublishDir = Join-Path $PSScriptRoot 'public'
+  }
 
 $manifestPath = Join-Path $PSScriptRoot 'manifest.json'
 if (-not (Test-Path $manifestPath)) {

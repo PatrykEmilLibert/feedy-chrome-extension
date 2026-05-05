@@ -49,6 +49,7 @@ $includeFiles = @(
     'install_native_policy.bat',
     'uninstall_native_policy.bat',
     'generate_update_xml.ps1',
+    'compute_extension_id_from_key.ps1',
     'pack_crx_windows.ps1',
     'prepare_github_hosting.ps1',
     'GITHUB_SETUP.md',
